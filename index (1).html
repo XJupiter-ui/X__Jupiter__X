@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XJupiter | مرکز تخصصی دانلود شیدر، ریسورس‌پک، مودهای بازی و فارسی‌ساز (PS5 Galaxy Edition)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        psDark: '#070b19',
+                        psCard: '#131b2e',
+                        psBlue: '#00439c',
+                        psLightBlue: '#0070d1',
+                        psNeon: '#00f2fe',
+                        psPurple: '#8b5cf6',
+                        psPink: '#ec4899',
+                        psGreen: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Vazirmatn Persian Font -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #050814;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .galaxy-bg {
+            background: 
+                radial-gradient(circle at 10% 15%, rgba(139, 92, 246, 0.22) 0%, transparent 45%),
+                radial-gradient(circle at 90% 85%, rgba(0, 112, 209, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.12) 0%, transparent 60%),
+                #050814;
+        }
+        .starfield {
+            background-image: radial-gradient(white 1px, transparent 0), radial-gradient(rgba(255,255,255,0.6) 1px, transparent 0);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            opacity: 0.25;
+        }
+        .ps5-tile {
+            background: rgba(19, 27, 46, 0.75);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 112, 209, 0.25);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ps5-tile:hover {
+            border-color: #00f2fe;
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.35), inset 0 0 15px rgba(0, 112, 209, 0.2);
+            transform: translateY(-6px) scale(1.02);
+        }
+        .ps-nav-tab {
+            transition: all 0.2s ease;
+        }
+        .ps-nav-tab.active {
+            color: #ffffff;
+            border-bottom: 3px solid #00f2fe;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050814;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0070d1;
+        }
+    </style>
+</head>
+<body class="galaxy-bg min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black relative">
+
+    <div class="absolute inset-0 starfield pointer-events-none z-0"></div>
+
+    <header class="sticky top-0 z-50 backdrop-blur-2xl bg-[#050814]/85 border-b border-blue-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-6 space-x-reverse">
+                <nav class="hidden md:flex items-center space-x-5 space-x-reverse font-bold text-xs">
+                    <button onclick="switchMainTab('all')" id="main-tab-all" class="ps-nav-tab active pb-1 text-white hover:text-cyan-300 flex items-center gap-1.5">
+                        <span>همه موارد</span>
+                    </button>
+                    <button onclick="switchMainTab('shader')" id="main-tab-shader" class="ps-nav-tab pb-1 text-gray-400 hover:text-white flex items-center gap-1.5">
+                        <span>شیدرها</span>
+                    </button>
+                    <button onclick="switchMainTab('resourcepack')" id="main-tab-resourcepack" class="ps-nav-tab pb-1 text-gray-400 hover:text-white flex items-center gap-1.5">
+                        <span>ریسورس‌پک‌ها</span>
+                    </button>
+                    <button onclick="switchMainTab('mod')" id="main-tab-mod" class="ps-nav-tab pb-1 text-gray-400 hover:text-white flex items-center gap-1.5">
+                        <span>مودهای بازی</span>
+                    </button>
+                    <button onclick="switchMainTab('translator')" id="main-tab-translator" class="ps-nav-tab pb-1 text-gray-400 hover:text-white flex items-center gap-1.5">
+                        <span>فارسی‌سازها</span>
+                    </button>
+                </nav>
+            </div>
+
+            <div class="flex items-center space-x-4 space-x-reverse text-gray-300">
+                <button onclick="toggleSearchModal()" class="w-10 h-10 rounded-2xl bg-[#131b2e] border border-blue-900/50 flex items-center justify-center hover:border-cyan-400 hover:text-cyan-300 transition shadow-lg" title="جستجو">
+                    <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                </button>
+                
+                <div id="authArea" class="flex items-center gap-2">
+                    <button onclick="openAuthModal()" class="px-3 py-1.5 rounded-2xl bg-[#131b2e] border border-blue-900/50 hover:border-cyan-400 text-xs font-bold text-cyan-300 transition shadow-lg flex items-center gap-1.5">
+                        <i class="fa-solid fa-right-to-bracket"></i> ثبت‌نام / ورود
+                    </button>
+                </div>
+
+                <div id="userProfileBadge" class="hidden items-center gap-2 relative">
+                    <div class="flex items-center gap-2 bg-[#131b2e]/90 border border-blue-900/50 px-3 py-1.5 rounded-2xl shadow-lg cursor-pointer relative group">
+                        <div id="userAvatarIcon" class="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-white text-xs font-black shadow">XP</div>
+                        <span id="userNameDisplay" class="text-xs font-bold text-cyan-200 hidden sm:inline">کاربر</span>
+                        <div id="devBadge" class="bg-purple-600 text-white text-[10px] px-2 py-0.5 rounded-md font-mono shadow-inner">حساب من</div>
+                        
+                        <div class="absolute left-0 top-full pt-2 w-48 hidden group-hover:block z-50">
+                            <div class="bg-[#131b2e] border-2 border-cyan-500/40 rounded-2xl shadow-2xl py-2">
+                                <button onclick="logoutUser()" class="w-full text-right px-4 py-2 text-xs text-red-400 hover:bg-red-950/50 font-bold flex items-center gap-2">
+                                    <i class="fa-solid fa-right-from-bracket"></i> خروج از حساب
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="devHeaderButtonContainer" class="flex">
+                        <button onclick="openDevPanel()" class="px-3 py-1.5 rounded-2xl bg-purple-950/80 border border-purple-500/60 hover:border-purple-400 text-xs font-bold text-purple-300 transition shadow-lg flex items-center gap-1.5" title="افزودن مورد جدید">
+                            <i class="fa-solid fa-plus"></i> <span class="hidden sm:inline">افزودن مورد جدید</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="liveClock" class="text-sm font-mono font-bold text-cyan-300 bg-blue-950/50 px-3 py-1.5 rounded-2xl border border-blue-800/40 hidden sm:block">
+                    05:42 AM
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full z-10 relative">
+
+        <div class="mb-10">
+            <h2 class="text-xs font-bold text-cyan-400 tracking-wider uppercase mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-filter text-purple-400"></i> تفکیک کامل دسته‌بندی‌ها (شیدر، ریسورس‌پک، مودهای بازی و فارسی‌سازها)
+            </h2>
+            <div class="flex items-center gap-4 overflow-x-auto pb-4 pt-1 no-scrollbar">
+                <button onclick="filterCategory('all')" id="cat-btn-all" class="flex flex-col items-center group flex-shrink-0 focus:outline-none">
+                    <div class="w-16 h-16 rounded-3xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-cyan-400 flex items-center justify-center text-white text-2xl shadow-xl shadow-blue-500/30 border-2 border-cyan-400 group-hover:scale-105 transition">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <span class="text-xs font-bold text-white mt-2 group-hover:text-cyan-300">همه موارد</span>
+                </button>
+                <button onclick="filterCategory('shader')" id="cat-btn-shader" class="flex flex-col items-center group flex-shrink-0 focus:outline-none">
+                    <div class="w-16 h-16 rounded-3xl bg-[#131b2e] border-2 border-blue-900/80 group-hover:border-cyan-400 flex items-center justify-center text-cyan-400 text-2xl shadow-lg group-hover:scale-105 transition">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-300 mt-2 group-hover:text-cyan-300">شیدرها</span>
+                </button>
+                <button onclick="filterCategory('resourcepack')" id="cat-btn-resourcepack" class="flex flex-col items-center group flex-shrink-0 focus:outline-none">
+                    <div class="w-16 h-16 rounded-3xl bg-[#131b2e] border-2 border-blue-900/80 group-hover:border-pink-400 flex items-center justify-center text-pink-400 text-2xl shadow-lg group-hover:scale-105 transition">
+                        <i class="fa-solid fa-box-archive"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-300 mt-2 group-hover:text-pink-300">ریسورس‌پک‌ها</span>
+                </button>
+                <button onclick="filterCategory('mod')" id="cat-btn-mod" class="flex flex-col items-center group flex-shrink-0 focus:outline-none">
+                    <div class="w-16 h-16 rounded-3xl bg-[#131b2e] border-2 border-blue-900/80 group-hover:border-green-400 flex items-center justify-center text-green-400 text-2xl shadow-lg group-hover:scale-105 transition">
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-300 mt-2 group-hover:text-green-300">مودهای بازی</span>
+                </button>
+                <button onclick="filterCategory('translator')" id="cat-btn-translator" class="flex flex-col items-center group flex-shrink-0 focus:outline-none">
+                    <div class="w-16 h-16 rounded-3xl bg-[#131b2e] border-2 border-blue-900/80 group-hover:border-purple-400 flex items-center justify-center text-purple-400 text-2xl shadow-lg group-hover:scale-105 transition">
+                        <i class="fa-solid fa-language"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-300 mt-2 group-hover:text-purple-300">فارسی‌سازها</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="spotlightBanner" class="relative rounded-3xl overflow-hidden border-2 border-cyan-500/40 p-8 sm:p-12 shadow-2xl bg-gradient-to-r from-[#131b2e] via-[#070b19] to-[#1b1035] mb-12">
+            <div class="absolute -left-20 -top-20 w-80 h-80 bg-purple-600/25 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10 max-w-2xl">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-400/40 text-cyan-300 text-xs font-bold mb-6 shadow">
+                    <i class="fa-solid fa-star text-cyan-300 animate-spin"></i> مرکز تخصصی XJupiter (تفکیک مودهای بازی از فارسی‌سازها)
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-black tracking-tight mb-4 leading-tight text-white">
+                    مدیریت و دانلود <span class="bg-gradient-to-r from-cyan-400 via-green-300 to-purple-400 bg-clip-text text-transparent">مودهای بازی و فارسی‌سازها</span>
+                </h1>
+                <p class="text-sm sm:text-base text-gray-300 mb-8 leading-relaxed">
+                    در این نسخه، مودهای گیم‌پلی و تغییرات بازی از بسته‌های فارسی‌ساز به صورت کاملاً مجزا تفکیک شده‌اند تا به سادگی به هر بخش دسترسی داشته باشید.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="openDevPanel()" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-black px-8 py-4 rounded-2xl transition shadow-xl shadow-cyan-500/30 flex items-center gap-3 text-sm">
+                        <i class="fa-solid fa-plus text-lg"></i>
+                        <span>افزودن مورد جدید به پنل</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-6 flex items-center justify-between">
+            <h2 id="sectionTitleHeading" class="text-2xl font-black text-white flex items-center gap-3">
+                <i class="fa-solid fa-list text-cyan-400"></i>
+                <span>لیست فایل‌ها، مودها و فارسی‌سازها</span>
+            </h2>
+            <span id="itemCountBadge" class="text-xs text-cyan-300 bg-blue-950/80 px-4 py-2 rounded-xl border border-cyan-800/60 font-mono">۰ مورد</span>
+        </div>
+
+        <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Populated via JavaScript -->
+        </div>
+
+    </main>
+
+    <!-- Auth / Registration Modal -->
+    <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl hidden">
+        <div class="bg-[#131b2e] border-2 border-cyan-500/50 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
+            <div class="text-right mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white text-xl mb-4 shadow-lg">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <h3 class="text-2xl font-black text-white">ثبت‌نام / ورود به حساب</h3>
+                <p class="text-xs text-gray-400 mt-1">برای ورود به سایت و دسترسی به امکانات، لطفا نام خود را وارد کنید.</p>
+            </div>
+            
+            <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-cyan-300 mb-1.5">نام کاربری یا نام شما</label>
+                    <input type="text" id="authUsername" required placeholder="مثال: علی رضایی..." class="w-full bg-[#050814] text-white px-4 py-3 rounded-xl outline-none border border-cyan-500/40 focus:border-cyan-400 text-sm">
+                </div>
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-black font-black py-3.5 rounded-xl transition shadow-xl shadow-cyan-500/30 text-center text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        <span>ورود به سایت</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Manage Panel Modal -->
+    <div id="devModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl hidden">
+        <div class="bg-[#131b2e] border-2 border-purple-500/80 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeDevPanel()" class="absolute left-6 top-6 w-10 h-10 rounded-full bg-blue-950/80 flex items-center justify-center text-gray-300 hover:text-white transition border border-purple-500/40">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-xl shadow-lg border border-purple-400">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-black text-white">افزودن شیدر، ریسورس‌پک، مود بازی یا فارسی‌ساز</h3>
+                    <p class="text-xs text-purple-300">دسته‌بندی دقیق را انتخاب کنید (مودها و فارسی‌سازها کاملاً جداست).</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleAddNewItem(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-cyan-300 mb-1">نوع دسته‌بندی (تفکیک‌شده)</label>
+                    <select id="newItemCategory" class="w-full bg-[#050814] text-white px-3 py-3 rounded-xl border border-purple-500/40 text-xs outline-none focus:border-purple-400">
+                        <option value="shader">شیدر (Shader)</option>
+                        <option value="resourcepack">ریسورس‌پک (Resource Pack)</option>
+                        <option value="mod">مود بازی (Game Mod - جدا از فارسی‌ساز)</option>
+                        <option value="translator">فارسی‌ساز (Persian Translator - جدا از مود)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-cyan-300 mb-1">عنوان مورد</label>
+                    <input type="text" id="newItemTitle" required placeholder="مثال: مود گرافیکی / فارسی‌ساز بازی..." class="w-full bg-[#050814] text-white px-3 py-3 rounded-xl border border-purple-500/40 text-xs outline-none focus:border-purple-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-cyan-300 mb-1">موضوع و توضیحات کامل</label>
+                    <textarea id="newItemDescription" rows="3" required placeholder="توضیحات درباره ویژگی‌ها، نسخه و جزئیات..." class="w-full bg-[#050814] text-white px-3 py-3 rounded-xl border border-purple-500/40 text-xs outline-none focus:border-purple-400"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-cyan-300 mb-1">لینک تصویر (عکس پیش‌نمایش)</label>
+                    <input type="url" id="newItemImage" required placeholder="https://example.com/image.jpg" class="w-full bg-[#050814] text-white px-3 py-3 rounded-xl border border-purple-500/40 text-xs outline-none focus:border-purple-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-cyan-300 mb-1">لینک دانلود مستقیم فایل</label>
+                    <input type="url" id="newItemUrl" required placeholder="https://example.com/download/file.zip" class="w-full bg-[#050814] text-white px-3 py-3 rounded-xl border border-purple-500/40 text-xs outline-none focus:border-purple-400">
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
+                    <span>ثبت و اضافه کردن به پنل</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="fixed inset-0 z-50 flex items-start justify-center pt-24 p-4 bg-black/85 backdrop-blur-lg hidden">
+        <div class="bg-[#131b2e] border-2 border-cyan-500/50 rounded-3xl max-w-xl w-full p-6 shadow-2xl relative">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-magnifying-glass text-cyan-400"></i> جستجو
+                </h3>
+                <button onclick="toggleSearchModal()" class="w-8 h-8 rounded-full bg-blue-950/60 flex items-center justify-center text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="relative mb-4">
+                <input type="text" id="globalSearchInput" oninput="handleGlobalSearch(this.value)" placeholder="نام شیدر، ریسورس‌پک، مود بازی یا فارسی‌ساز..." class="w-full bg-[#050814] text-white px-4 py-3.5 rounded-2xl outline-none border border-cyan-500/40 focus:border-cyan-400 text-sm">
+            </div>
+            <div id="searchResultsContainer" class="space-y-3 max-h-80 overflow-y-auto">
+                <p class="text-xs text-gray-400 text-center py-4">لطفاً واژه مورد نظر خود را جستجو کنید.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="fixed bottom-6 left-6 z-50 bg-[#131b2e] border border-cyan-400 text-white px-6 py-4 rounded-2xl shadow-2xl hidden transition-all duration-300 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-cyan-400 text-xl"></i>
+        <span id="toastText" class="text-sm font-bold">پیام سیستم</span>
+    </div>
+
+    <footer class="bg-[#03050c] text-gray-400 py-10 border-t border-blue-900/30 mt-20 text-sm z-10 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-white text-lg shadow">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <span class="text-lg font-bold text-white">XJupiter - Hub & Mod Center</span>
+            </div>
+            <p class="text-xs text-gray-500">تمامی حقوق محفوظ است © ۲۰۲۶</p>
+        </div>
+    </footer>
+
+    <script>
+        let itemsList = JSON.parse(localStorage.getItem('xjupiter_shaders_mods_translators_v4')) || [
+            {
+                id: 1,
+                title: 'شیدر گرافیکی Ultra Realism 4K',
+                category: 'shader',
+                categoryName: 'شیدر',
+                description: 'شیدر پیشرفته با کیفیت 4K و نورپردازی فوق‌العاده واقعی برای بهبود چشمگیر گرافیک بازی.',
+                imageUrl: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80',
+                fileUrl: 'https://example.com/download/ultra-realism-shader.zip'
+            },
+            {
+                id: 2,
+                title: 'ریسورس‌پک HD Textures Pack',
+                category: 'resourcepack',
+                categoryName: 'ریسورس‌پک',
+                description: 'پک بافت باکیفیت و تکسچرهای بهبود یافته برای محیط و المان‌های بازی.',
+                imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
+                fileUrl: 'https://example.com/download/hd-resource-pack.zip'
+            },
+            {
+                id: 3,
+                title: 'مود گیم‌پلی و ماشین‌های اسپرت (Game Mod)',
+                category: 'mod',
+                categoryName: 'مود بازی',
+                description: 'مود اختصاصی گیم‌پلی، افزودن خودروهای جدید و تغییر مکانیک‌های حرکتی بازی.',
+                imageUrl: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80',
+                fileUrl: 'https://example.com/download/game-mod-sport-cars.zip'
+            },
+            {
+                id: 4,
+                title: 'مود فارسی‌ساز کامل Cyberpunk 2077',
+                category: 'translator',
+                categoryName: 'فارسی‌ساز',
+                description: 'ترجمه روان و کامل تمامی زیرنویس‌ها، منوها و دیالوگ‌های بازی سایبرپانک ۲۰۷۷ به زبان فارسی (کاملاً جدا از مودهای بازی).',
+                imageUrl: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80',
+                fileUrl: 'https://example.com/download/cyberpunk-fa-mod.zip'
+            }
+        ];
+
+        let currentFilter = 'all';
+        let currentUser = JSON.parse(localStorage.getItem('xjupiter_current_user')) || null;
+
+        function initAuthUI() {
+            const authArea = document.getElementById('authArea');
+            const profileBadge = document.getElementById('userProfileBadge');
+            const userNameDisplay = document.getElementById('userNameDisplay');
+
+            if (currentUser && currentUser.username) {
+                authArea.classList.add('hidden');
+                profileBadge.classList.remove('hidden');
+                profileBadge.classList.add('flex');
+                userNameDisplay.innerText = currentUser.username;
+                closeAuthModal();
+            } else {
+                authArea.classList.remove('hidden');
+                profileBadge.classList.add('hidden');
+                profileBadge.classList.remove('flex');
+                openAuthModal();
+            }
+        }
+
+        function renderCatalog(filter = 'all') {
+            const grid = document.getElementById('catalogGrid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? itemsList 
+                : itemsList.filter(item => item.category === filter);
+
+            document.getElementById('itemCountBadge').innerText = `${filtered.length} مورد فعال`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-16 bg-[#131b2e]/50 rounded-3xl border border-blue-900/40">
+                        <i class="fa-solid fa-folder-open text-4xl text-gray-500 mb-3"></i>
+                        <p class="text-gray-400 text-sm">هیچ مورد یا لینکی در این بخش ثبت نشده است.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(item => {
+                let iconClass = 'fa-wand-magic-sparkles text-cyan-400';
+                if(item.category === 'resourcepack') iconClass = 'fa-box-archive text-pink-400';
+                if(item.category === 'mod') iconClass = 'fa-puzzle-piece text-green-400';
+                if(item.category === 'translator') iconClass = 'fa-language text-purple-400';
+
+                const cardHTML = `
+                    <div class="ps5-tile rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-48 overflow-hidden bg-black/40">
+                                <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute top-3 right-3">
+                                    <span class="bg-black/75 backdrop-blur-md text-cyan-300 text-xs font-bold px-3 py-1.5 rounded-xl border border-cyan-500/40 shadow flex items-center gap-1.5">
+                                        <i class="fa-solid ${iconClass}"></i> ${item.categoryName}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-bold text-lg mb-2 text-white">${item.title}</h3>
+                                <p class="text-xs text-gray-300 mb-4 line-clamp-3 leading-relaxed">${item.description}</p>
+                                <p class="text-[11px] text-gray-400 font-mono mb-4 truncate bg-[#050814] p-2.5 rounded-xl border border-blue-900/40">
+                                    <i class="fa-solid fa-link ml-1 text-cyan-400"></i> ${item.fileUrl}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between gap-3">
+                            <a href="${item.fileUrl}" target="_blank" onclick="showNotification('در حال انتقال به لینک دانلود...')" class="flex-1 bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-black font-black px-4 py-3 rounded-xl text-center text-xs transition flex items-center justify-center gap-2 shadow-lg">
+                                <i class="fa-solid fa-download text-sm"></i>
+                                <span>دانلود مستقیم</span>
+                            </a>
+                            <button onclick="deleteItem(${item.id})" class="w-10 h-10 rounded-xl bg-red-950/60 hover:bg-red-900 text-red-400 flex items-center justify-center border border-red-800/50 transition" title="حذف مورد">
+                                <i class="fa-solid fa-trash-can text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHTML;
+            });
+        }
+
+        function filterCategory(cat) {
+            currentFilter = cat;
+            renderCatalog(cat);
+
+            ['all', 'shader', 'resourcepack', 'mod', 'translator'].forEach(c => {
+                const btn = document.getElementById(`cat-btn-${c}`);
+                if(btn) {
+                    const div = btn.querySelector('div');
+                    if(c === cat) {
+                        div.classList.add('border-cyan-400', 'shadow-cyan-500/50');
+                        div.classList.remove('border-blue-900/80');
+                    } else {
+                        div.classList.remove('border-cyan-400', 'shadow-cyan-500/50');
+                        div.classList.add('border-blue-900/80');
+                    }
+                }
+            });
+        }
+
+        function switchMainTab(tab) {
+            ['all', 'shader', 'resourcepack', 'mod', 'translator'].forEach(t => {
+                const tabEl = document.getElementById(`main-tab-${t}`);
+                if(tabEl) {
+                    if(t === tab) {
+                        tabEl.classList.add('active', 'text-white');
+                        tabEl.classList.remove('text-gray-400');
+                    } else {
+                        tabEl.classList.remove('active', 'text-white');
+                        tabEl.classList.add('text-gray-400');
+                    }
+                }
+            });
+            filterCategory(tab);
+        }
+
+        function openAuthModal() {
+            document.getElementById('authModal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+        }
+
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            const username = document.getElementById('authUsername').value.trim();
+            if (!username) return;
+            
+            currentUser = { username: username };
+            localStorage.setItem('xjupiter_current_user', JSON.stringify(currentUser));
+            closeAuthModal();
+            initAuthUI();
+            showNotification(`خوش آمدید، ${username}!`);
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            localStorage.removeItem('xjupiter_current_user');
+            initAuthUI();
+            showNotification('از حساب خود خارج شدید.');
+        }
+
+        function openDevPanel() {
+            document.getElementById('devModal').classList.remove('hidden');
+        }
+
+        function closeDevPanel() {
+            document.getElementById('devModal').classList.add('hidden');
+        }
+
+        function handleAddNewItem(event) {
+            event.preventDefault();
+            const category = document.getElementById('newItemCategory').value;
+            const title = document.getElementById('newItemTitle').value.trim();
+            const description = document.getElementById('newItemDescription').value.trim();
+            const imageUrl = document.getElementById('newItemImage').value.trim();
+            const fileUrl = document.getElementById('newItemUrl').value.trim();
+
+            let catName = 'شیدر';
+            if(category === 'resourcepack') catName = 'ریسورس‌پک';
+            if(category === 'mod') catName = 'مود بازی';
+            if(category === 'translator') catName, catName = 'فارسی‌ساز';
+
+            const newId = itemsList.length > 0 ? Math.max(...itemsList.map(i => i.id)) + 1 : 1;
+
+            const newItem = {
+                id: newId,
+                title: title,
+                category: category,
+                categoryName: catName,
+                description: description,
+                imageUrl: imageUrl,
+                fileUrl: fileUrl
+            };
+
+            itemsList.unshift(newItem);
+            localStorage.setItem('xjupiter_shaders_mods_translators_v4', JSON.stringify(itemsList));
+
+            renderCatalog(currentFilter);
+            closeDevPanel();
+            showNotification(`"${title}" با موفقیت اضافه شد.`);
+            event.target.reset();
+        }
+
+        function deleteItem(id) {
+            if(confirm('آیا از حذف این مورد اطمینان دارید؟')) {
+                itemsList = itemsList.filter(item => item.id !== id);
+                localStorage.setItem('xjupiter_shaders_mods_translators_v4', JSON.stringify(itemsList));
+                renderCatalog(currentFilter);
+                showNotification('مورد با موفقیت حذف شد.');
+            }
+        }
+
+        function toggleSearchModal() {
+            const modal = document.getElementById('searchModal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                document.getElementById('globalSearchInput').focus();
+            }
+        }
+
+        function handleGlobalSearch(query) {
+            const container = document.getElementById('searchResultsContainer');
+            if (!query.trim()) {
+                container.innerHTML = '<p class="text-xs text-gray-400 text-center py-4">لطفاً واژه مورد نظر خود را جستجو کنید.</p>';
+                return;
+            }
+
+            const filtered = itemsList.filter(f => f.title.toLowerCase().includes(query.toLowerCase()) || f.description.toLowerCase().includes(query.toLowerCase()));
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '<p class="text-xs text-gray-400 text-center py-4">نتیجه‌ای یافت نشد.</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            filtered.forEach(item => {
+                container.innerHTML += `
+                    <div class="p-3 bg-[#050814] rounded-2xl border border-cyan-500/30 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="${item.imageUrl}" class="w-10 h-10 rounded-xl object-cover">
+                            <div>
+                                <span class="text-[10px] text-cyan-400 font-bold">${item.categoryName}</span>
+                                <h4 class="text-sm font-bold text-white">${item.title}</h4>
+                            </div>
+                        </div>
+                        <a href="${item.fileUrl}" target="_blank" class="px-3 py-1.5 bg-cyan-500 text-black text-xs font-bold rounded-xl">دانلود</a>
+                    </div>
+                `;
+            });
+        }
+
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            const strTime = `${hours}:${minutes} ${ampm}`;
+            const clockEl = document.getElementById('liveClock');
+            if(clockEl) clockEl.innerText = strTime;
+        }
+
+        function showNotification(msg) {
+            const toast = document.getElementById('toastNotification');
+            const text = document.getElementById('toastText');
+            text.innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3500);
+        }
+
+        window.onload = function() {
+            initAuthUI();
+            renderCatalog('all');
+            setInterval(updateClock, 1000);
+        };
+    </script>
+</body>
+</html>
